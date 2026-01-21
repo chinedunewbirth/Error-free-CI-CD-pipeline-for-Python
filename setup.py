@@ -9,7 +9,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 setup(
     name="Error-free-CI-CD-pipeline-for-Python",
     version="0.1.0",
-    author="Your Name",
+    author="chinedunewbirth",
     author_email="chinedumazigtv@gmail.com",
     description="A short description of your project",
     long_description=long_description,
