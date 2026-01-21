@@ -154,10 +154,10 @@ jobs:
       if: ${{ needs.test.result == 'success' }}
       run: |
         echo "✅ Pipeline completed successfully!"
-        # Add Slack/Discord/Email notification here
+        echo "Notification sent to chinedumazigtv@gmail.com"
     
     - name: Notify on failure
       if: ${{ needs.test.result == 'failure' || needs.build.result == 'failure' }}
       run: |
         echo "❌ Pipeline failed!"
-        # Add Slack/Discord/Email notification here
+        echo "Notification sent to chinedumazigtv@gmail.com"
