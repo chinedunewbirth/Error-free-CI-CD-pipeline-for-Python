@@ -152,12 +152,46 @@ jobs:
     
     - name: Notify on success
       if: ${{ needs.test.result == 'success' }}
-      run: |
-        echo "✅ Pipeline completed successfully!"
-        echo "Notification sent to chinedumazigtv@gmail.com"
+      uses: dawidd6/action-send-mail@v4
+      with:
+        server_address: ${{ secrets.EMAIL_SERVER }}
+        server_port: ${{ secrets.EMAIL_PORT }}
+        username: ${{ secrets.EMAIL_USERNAME }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: "✅ CI/CD Pipeline Success - ${{ github.repository }}"
+        to: chinedumazigtv@gmail.com
+        from: "GitHub Actions"
+        body: |
+          Pipeline completed successfully!
+          
+          Repository: ${{ github.repository }}
+          Branch: ${{ github.ref }}
+          Commit: ${{ github.sha }}
+          Author: ${{ github.actor }}
+          
+          All tests passed and build completed.
     
     - name: Notify on failure
       if: ${{ needs.test.result == 'failure' || needs.build.result == 'failure' }}
-      run: |
-        echo "❌ Pipeline failed!"
-        echo "Notification sent to chinedumazigtv@gmail.com"
+      uses: dawidd6/action-send-mail@v4
+      with:
+        server_address: ${{ secrets.EMAIL_SERVER }}
+        server_port: ${{ secrets.EMAIL_PORT }}
+        username: ${{ secrets.EMAIL_USERNAME }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: "❌ CI/CD Pipeline Failed - ${{ github.repository }}"
+        to: chinedumazigtv@gmail.com
+        from: "GitHub Actions"
+        body: |
+          Pipeline execution failed!
+          
+          Repository: ${{ github.repository }}
+          Branch: ${{ github.ref }}
+          Commit: ${{ github.sha }}
+          Author: ${{ github.actor }}
+          
+          Test result: ${{ needs.test.result }}
+          Build result: ${{ needs.build.result }}
+          
+          Check the workflow run for more details.
+      continue-on-error: true
