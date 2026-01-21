@@ -111,28 +111,27 @@ jobs:
         path: dist/
     
     - name: Deploy to PyPI (optional)
-      if: ${{ secrets.PYPI_API_TOKEN != '' }}
+      if: github.event_name == 'push'
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       run: |
         pip install twine
-        # Uncomment to deploy to PyPI
+        # Uncomment when ready to deploy to PyPI
         # twine upload dist/*
+        echo "PyPI deployment configured but commented out"
     
     - name: Deploy to server (example)
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SERVER_HOST: ${{ secrets.SERVER_HOST }}
-        SERVER_USER: ${{ secrets.SERVER_USER }}
+      if: github.event_name == 'push'
       run: |
         # Example deployment script
         echo "Deployment would happen here"
+        # Uncomment and configure when ready to deploy
         # mkdir -p ~/.ssh
-        # echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         # chmod 600 ~/.ssh/id_rsa
-        # scp -r dist/* $SERVER_USER@$SERVER_HOST:/path/to/deploy/
-        # ssh $SERVER_USER@$SERVER_HOST 'cd /path/to/deploy && pip install *.whl --upgrade'
+        # scp -r dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/path/to/deploy/
+        # ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'cd /path/to/deploy && pip install *.whl --upgrade'
 
   notify:
     needs: [test, build, deploy]
