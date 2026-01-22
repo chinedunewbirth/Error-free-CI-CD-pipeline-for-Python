@@ -159,7 +159,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         subject: "✅ CI/CD Pipeline Success - ${{ github.repository }}"
-        to: chinedumazigtv@gmail.com
+        to: chineduchukwuemekamaziuk@gmail.com
         from: "GitHub Actions"
         body: |
           Pipeline completed successfully!
@@ -180,7 +180,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         subject: "❌ CI/CD Pipeline Failed - ${{ github.repository }}"
-        to: chinedumazigtv@gmail.com
+        to: chineduchukwuemekamaziuk@gmail.com
         from: "GitHub Actions"
         body: |
           Pipeline execution failed!
